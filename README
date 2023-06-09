@@ -1,0 +1,3 @@
+This script first loads the survey data into a pandas dataframe and selects the "LATITUDE" and "LONGITUDE" fields as input features and the "INCOME" field as the target variable. It then splits the data into training and testing sets and trains a Random Forest Classifier on the training data.
+Next, the script generates 100 random spatial points within the range of the "LATITUDE" and "LONGITUDE" fields in the survey data. It then uses the trained model to predict the "INCOME" value for each of the new points and prints the predictions to the console.
+Note that the accuracy of the predictions will depend on the quality and representativeness of the survey data used to train the model.
