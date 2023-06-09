@@ -3,6 +3,10 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
+# User Params
+#max_lat = NA
+#min_lat = NA
+
 # Load the survey data into a pandas dataframe
 survey_data = pd.read_csv("survey_data.csv")
 
