@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
-from sklearn.ensemble import RandomForestRegressor  # Changed to Regressor
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 # Load the survey data into a pandas dataframe
 survey_data = pd.read_csv("survey_data.csv")
@@ -11,11 +12,26 @@ X = survey_data[["LATITUDE", "LONGITUDE"]]
 y = survey_data["INCOME"]
 
 # Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # Train a Random Forest Regressor on the training data
 rfr = RandomForestRegressor(n_estimators=100, random_state=42)
 rfr.fit(X_train, y_train)
+
+# Evaluate the model on the test data
+y_pred = rfr.predict(X_test)
+
+# Calculate evaluation metrics
+mae = mean_absolute_error(y_test, y_pred)
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print("Model Evaluation Metrics:")
+print(f"Mean Absolute Error (MAE): {mae}")
+print(f"Mean Squared Error (MSE): {mse}")
+print(f"R-squared (R²): {r2}")
 
 # Generate random spatial points
 n_points = 100
@@ -29,4 +45,5 @@ new_points = pd.DataFrame({"LATITUDE": random_lats, "LONGITUDE": random_lons})
 predictions = rfr.predict(new_points)
 
 # Print the predicted "INCOME" values for the new points
+print("\nPredicted INCOME values for new points:")
 print(predictions)
